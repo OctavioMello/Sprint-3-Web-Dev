@@ -4,15 +4,15 @@ import "./Demo.css";
 const RESULT_TEMPLATES = [
     {
         label: "Sala 204",
-        min: 90
+        min: 50
     },
     {
         label: "Porta à direita",
-        min: 92
+        min: 50
     },
     {
         label: "Possível obstáculo",
-        min: 78
+        min: 50
     }
 ];
 

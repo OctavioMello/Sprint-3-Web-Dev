@@ -6,7 +6,7 @@ import HowItWorks from "./components/HowItWorks/HowItWorks";
 import Demo from "./components/Demo/Demo";
 import Perception from "./components/Perception/Perception";
 import Experience from "./components/Experience";
-import MVP from "./components/MVP";
+import MVP from "./components/MVP/MVP";
 import Autonomy from "./components/Autonomy";
 import About from "./components/About";
 import Footer from "./components/Footer";
