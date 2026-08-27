@@ -1,0 +1,67 @@
+.problem {
+    background: linear-gradient(180deg, var(--ink), var(--surface));
+    border-top: 1px solid var(--line);
+}
+
+.problem-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.problem-card {
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: var(--surface-raised);
+    padding: clamp(1.4rem, 3vw, 2rem);
+}
+
+.problem-card h3 {
+    font-size: 1.25rem;
+    margin-top: 0.8rem;
+}
+
+.problem-card p {
+    margin-top: 0.6rem;
+    color: var(--paper-dim);
+    max-width: 28rem;
+}
+
+.problem-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--danger);
+    border: 1px solid rgba(255, 138, 128, 0.35);
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+}
+
+@media (min-width: 860px) {
+    .problem-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .problem-card.large {
+        grid-column: span 4;
+        grid-row: span 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        min-height: 18rem;
+    }
+
+    .problem-card.large h3 {
+        font-size: 1.7rem;
+    }
+
+    .problem-card.medium {
+        grid-column: span 2;
+    }
+
+    .problem-card.small {
+        grid-column: span 2;
+        background: transparent;
+        border-style: dashed;
+    }
+}
