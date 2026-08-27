@@ -1,0 +1,118 @@
+.evolution {
+    background: var(--ink);
+    border-top: 1px solid var(--line);
+}
+
+.evolution-track {
+    display: grid;
+    gap: 2.5rem;
+}
+
+.evolution-stage {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1.2rem;
+}
+
+.evolution-marker {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.evolution-marker > span:first-child {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--signal);
+    background: var(--ink);
+    font-size: 0.65rem;
+    z-index: 2;
+}
+
+.evolution-line {
+    position: absolute;
+    top: 2rem;
+    bottom: -2.5rem;
+    width: 1px;
+    background: var(--line);
+}
+
+.evolution-stage:last-child .evolution-line {
+    display: none;
+}
+
+.evolution-content {
+    padding-bottom: 1rem;
+}
+
+.evolution-label {
+    display: inline-block;
+    color: var(--sense);
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.6rem;
+}
+
+.evolution-content h3 {
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+}
+
+.evolution-content > p {
+    margin-top: 0.55rem;
+    color: var(--paper-dim);
+    max-width: 38rem;
+}
+
+.evolution-examples {
+    margin-top: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.evolution-example {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+    color: var(--paper-dim);
+    font-size: 0.82rem;
+}
+
+.evolution-arrow {
+    color: var(--signal);
+    font-family: var(--font-mono);
+}
+
+@media (min-width: 860px) {
+    .evolution-track {
+        gap: 0;
+    }
+
+    .evolution-stage {
+        grid-template-columns: 3.5rem 1fr;
+        gap: 1.5rem;
+        min-height: 13rem;
+    }
+
+    .evolution-content {
+        padding: 0 0 3.5rem;
+    }
+
+    .evolution-examples {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .evolution-example {
+        width: fit-content;
+        max-width: 22rem;
+    }
+}
