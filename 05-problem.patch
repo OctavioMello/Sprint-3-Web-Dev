@@ -1,0 +1,169 @@
+diff --git a/src/components/Problem/Problem.css b/src/components/Problem/Problem.css
+index 31bc52b..b41b037 100644
+--- a/src/components/Problem/Problem.css
++++ b/src/components/Problem/Problem.css
+@@ -1,6 +1,30 @@
+ .problem {
+-    background: linear-gradient(180deg, var(--ink), var(--surface));
++    position: relative;
++    background: var(--surface-alt);
+     border-top: 1px solid var(--line);
++    border-bottom: 1px solid var(--line);
++    overflow: hidden;
++}
++
++.problem-pattern {
++    position: absolute;
++    inset: 0;
++    z-index: 0;
++    pointer-events: none;
++    background-image: repeating-linear-gradient(
++        135deg,
++        rgba(143, 139, 255, 0.05) 0px,
++        rgba(143, 139, 255, 0.05) 1px,
++        transparent 1px,
++        transparent 22px
++    );
++    mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
++}
++
++.problem .section-head,
++.problem-grid {
++    position: relative;
++    z-index: 1;
+ }
+ 
+ .problem-grid {
+@@ -11,8 +35,15 @@
+ .problem-card {
+     border-radius: 18px;
+     border: 1px solid var(--line);
+-    background: var(--surface-raised);
++    background: linear-gradient(160deg, var(--surface-raised), var(--surface));
+     padding: clamp(1.4rem, 3vw, 2rem);
++    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
++}
++
++.problem-card:hover {
++    border-color: var(--indigo);
++    transform: translateY(-4px);
++    box-shadow: 0 20px 40px -28px rgba(143, 139, 255, 0.6);
+ }
+ 
+ .problem-card h3 {
+@@ -31,8 +62,9 @@
+     font-size: 0.65rem;
+     letter-spacing: 0.14em;
+     text-transform: uppercase;
+-    color: var(--danger);
+-    border: 1px solid rgba(255, 138, 128, 0.35);
++    color: var(--indigo);
++    border: 1px solid rgba(143, 139, 255, 0.35);
++    background: var(--indigo-dim);
+     border-radius: 999px;
+     padding: 0.25rem 0.6rem;
+ }
+@@ -64,4 +96,4 @@
+         background: transparent;
+         border-style: dashed;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/Problem/Problem.jsx b/src/components/Problem/Problem.jsx
+index 5b0c72d..f556d9b 100644
+--- a/src/components/Problem/Problem.jsx
++++ b/src/components/Problem/Problem.jsx
+@@ -1,4 +1,5 @@
+ import ProblemCard from "./ProblemCard";
++import Reveal from "../common/Reveal";
+ import "./Problem.css";
+ 
+ const ISSUES = [
+@@ -6,41 +7,43 @@ const ISSUES = [
+         tag: "Piso",
+         title: "Rotas apagadas",
+         desc: "Piso tátil interrompido e desníveis que somem exatamente onde mais precisam existir.",
+-        size: "large"
++        size: "large",
+     },
+     {
+         tag: "Altura",
+         title: "Armadilhas aéreas",
+         desc: "Objetos suspensos e obstáculos fora do alcance da bengala.",
+-        size: "medium"
++        size: "medium",
+     },
+     {
+         tag: "Mente",
+         title: "Sobrecarga mental",
+         desc: "Cada decisão de trajeto consome atenção e autonomia.",
+-        size: "small"
+-    }
++        size: "small",
++    },
+ ];
+ 
+ function Problem() {
+     return (
+         <section className="section problem" id="problema">
+-            <div className="section-head">
+-                <p className="eyebrow">O problema</p>
++            <div className="problem-pattern" aria-hidden="true" />
+ 
++            <Reveal as="div" className="section-head">
++                <p className="eyebrow">O problema</p>
+                 <h2 className="section-title">
+                     O problema não é apenas se locomover. É acessar as informações do caminho.
+                 </h2>
+-            </div>
++            </Reveal>
+ 
+             <div className="problem-grid">
+-                {ISSUES.map((issue) => (
++                {ISSUES.map((issue, index) => (
+                     <ProblemCard
+                         key={issue.title}
+                         tag={issue.tag}
+                         title={issue.title}
+                         description={issue.desc}
+                         size={issue.size}
++                        delay={index * 110}
+                     />
+                 ))}
+             </div>
+@@ -48,4 +51,4 @@ function Problem() {
+     );
+ }
+ 
+-export default Problem;
+\ No newline at end of file
++export default Problem;
+diff --git a/src/components/Problem/ProblemCard.jsx b/src/components/Problem/ProblemCard.jsx
+index d4e645e..98ad3e0 100644
+--- a/src/components/Problem/ProblemCard.jsx
++++ b/src/components/Problem/ProblemCard.jsx
+@@ -1,15 +1,13 @@
+-function ProblemCard({ tag, title, description, size }) {
+-    return (
+-        <article className={`problem-card ${size}`}>
+-            <span className="problem-tag mono">
+-                {tag}
+-            </span>
++import Reveal from "../common/Reveal";
+ 
++function ProblemCard({ tag, title, description, size, delay = 0 }) {
++    return (
++        <Reveal as="article" variant="up" delay={delay} className={`problem-card ${size}`}>
++            <span className="problem-tag mono">{tag}</span>
+             <h3>{title}</h3>
+-
+             <p>{description}</p>
+-        </article>
++        </Reveal>
+     );
+ }
+ 
+-export default ProblemCard;
+\ No newline at end of file
++export default ProblemCard;
