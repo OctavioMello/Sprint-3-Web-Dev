@@ -1,0 +1,96 @@
+diff --git a/src/components/Footer/Footer.css b/src/components/Footer/Footer.css
+index c9db4a6..6533d92 100644
+--- a/src/components/Footer/Footer.css
++++ b/src/components/Footer/Footer.css
+@@ -2,12 +2,33 @@
+     position: relative;
+     padding: clamp(3.5rem, 8vw, 5.5rem) var(--edge) 2.5rem;
+     text-align: center;
+-    background: var(--surface-raised);
++    background: var(--void);
+     border-top: 1px solid var(--line);
+ 
+     display: flex;
+     flex-direction: column;
+     align-items: center;
++    overflow: hidden;
++}
++
++.footer-glow {
++    position: absolute;
++    top: -30%;
++    left: 50%;
++    transform: translateX(-50%);
++    width: 44rem;
++    height: 26rem;
++    background: radial-gradient(ellipse, rgba(76, 127, 255, 0.16), transparent 65%);
++    pointer-events: none;
++    z-index: 0;
++}
++
++.footer-inner {
++    position: relative;
++    z-index: 1;
++    display: flex;
++    flex-direction: column;
++    align-items: center;
+ }
+ 
+ .footer-title {
+@@ -35,4 +56,4 @@
+ 
+ .footer-eyebrow {
+     justify-content: center;
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/Footer/Footer.jsx b/src/components/Footer/Footer.jsx
+index 9ffacfb..e953ba5 100644
+--- a/src/components/Footer/Footer.jsx
++++ b/src/components/Footer/Footer.jsx
+@@ -1,28 +1,27 @@
++import Reveal from "../common/Reveal";
+ import "./Footer.css";
+ 
+ function Footer() {
+     return (
+         <footer className="footer">
+-            <p className="eyebrow footer-eyebrow">
+-                Vision Assist AI
+-            </p>
++            <div className="footer-glow" aria-hidden="true" />
+ 
+-            <h2 className="footer-title">
+-                Mais informação. Menos dependência.
+-            </h2>
++            <Reveal as="div" className="footer-inner" variant="scale">
++                <p className="eyebrow footer-eyebrow">Vision Assist AI</p>
++                <h2 className="footer-title">Mais informação. Menos dependência.</h2>
++                <p className="footer-principle">
++                    A IA não decide pelo usuário. Ela fornece informações
++                    para que ele possa decidir.
++                </p>
+ 
+-            <p className="footer-principle">
+-                A IA não decide pelo usuário. Ela fornece informações
+-                para que ele possa decidir.
+-            </p>
+-
+-            <div className="footer-meta mono">
+-                <span>Protótipo acadêmico</span>
+-                <span>·</span>
+-                <span>Conceito em desenvolvimento</span>
+-            </div>
++                <div className="footer-meta mono">
++                    <span>Protótipo acadêmico</span>
++                    <span>·</span>
++                    <span>Conceito em desenvolvimento</span>
++                </div>
++            </Reveal>
+         </footer>
+     );
+ }
+ 
+-export default Footer;
+\ No newline at end of file
++export default Footer;
