@@ -20,10 +20,10 @@ function MVP() {
     return (
         <section className="section mvp" id="mvp">
             <div className="section-head">
-                <p className="eyebrow">Escopo do protótipo</p>
+                <p className="eyebrow">O que faz parte do MVP. O que ainda não é o foco.</p>
 
                 <h2 className="section-title">
-                    O que já existe. O que ainda não é o foco.
+                    Onde o Vision Assist começa. E até onde ele vai.
                 </h2>
             </div>
 

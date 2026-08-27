@@ -19,7 +19,7 @@ function Footer() {
             <div className="footer-meta mono">
                 <span>Protótipo acadêmico</span>
                 <span>·</span>
-                <span>Sem IA real integrada</span>
+                <span>Conceito em desenvolvimento</span>
             </div>
         </footer>
     );
