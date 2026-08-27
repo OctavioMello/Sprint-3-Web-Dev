@@ -23,13 +23,13 @@
 .evolution-marker > span:first-child {
     width: 2rem;
     height: 2rem;
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--cyan);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--signal);
-    background: var(--ink);
+    color: var(--cyan);
+    background: var(--cyan-dim);
     font-size: 0.65rem;
     z-index: 2;
 }
@@ -39,7 +39,7 @@
     top: 2rem;
     bottom: -2.5rem;
     width: 1px;
-    background: var(--line);
+    background: linear-gradient(180deg, var(--cyan-dim), transparent);
 }
 
 .evolution-stage:last-child .evolution-line {
@@ -52,7 +52,7 @@
 
 .evolution-label {
     display: inline-block;
-    color: var(--sense);
+    color: var(--cyan);
     font-size: 0.65rem;
     letter-spacing: 0.14em;
     margin-bottom: 0.6rem;
@@ -84,10 +84,16 @@
     background: var(--surface);
     color: var(--paper-dim);
     font-size: 0.82rem;
+    transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.evolution-example:hover {
+    border-color: var(--cyan);
+    transform: translateY(-2px);
 }
 
 .evolution-arrow {
-    color: var(--signal);
+    color: var(--cyan);
     font-family: var(--font-mono);
 }
 
