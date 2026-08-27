@@ -1,5 +1,23 @@
 .differentials {
-    background: var(--surface);
+    position: relative;
+    background: var(--surface-alt);
+    overflow: hidden;
+}
+
+.differentials-pattern {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: radial-gradient(rgba(143, 139, 255, 0.14) 1px, transparent 1px);
+    background-size: 20px 20px;
+    mask-image: radial-gradient(ellipse 55% 50% at 85% 15%, black, transparent 70%);
+}
+
+.differentials .section-head,
+.differentials-layout {
+    position: relative;
+    z-index: 1;
 }
 
 .differentials-layout {
@@ -9,8 +27,9 @@
 
 .differentials-statement {
     padding: 1.5rem;
-    border-left: 2px solid var(--signal);
-    background: var(--surface-raised);
+    border-left: 2px solid var(--indigo);
+    background: linear-gradient(160deg, var(--surface-raised), var(--surface));
+    border-radius: 0 14px 14px 0;
 }
 
 .differentials-statement > span {
@@ -28,7 +47,7 @@
 }
 
 .differentials-statement strong {
-    color: var(--sense);
+    color: var(--indigo);
     font-weight: 500;
 }
 
@@ -44,10 +63,16 @@
     gap: 1rem;
     padding: 1.4rem 0;
     border-bottom: 1px solid var(--line);
+    transition: padding-left 0.3s ease, border-color 0.3s ease;
+}
+
+.differential-item:hover {
+    padding-left: 0.5rem;
+    border-color: var(--indigo);
 }
 
 .differential-number {
-    color: var(--signal);
+    color: var(--indigo);
     font-size: 0.7rem;
     padding-top: 0.2rem;
 }

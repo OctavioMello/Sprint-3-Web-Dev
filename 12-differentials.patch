@@ -1,0 +1,198 @@
+diff --git a/src/components/Differentials/Differentials.css b/src/components/Differentials/Differentials.css
+index 384819a..f9d6c22 100644
+--- a/src/components/Differentials/Differentials.css
++++ b/src/components/Differentials/Differentials.css
+@@ -1,5 +1,23 @@
+ .differentials {
+-    background: var(--surface);
++    position: relative;
++    background: var(--surface-alt);
++    overflow: hidden;
++}
++
++.differentials-pattern {
++    position: absolute;
++    inset: 0;
++    z-index: 0;
++    pointer-events: none;
++    background-image: radial-gradient(rgba(143, 139, 255, 0.14) 1px, transparent 1px);
++    background-size: 20px 20px;
++    mask-image: radial-gradient(ellipse 55% 50% at 85% 15%, black, transparent 70%);
++}
++
++.differentials .section-head,
++.differentials-layout {
++    position: relative;
++    z-index: 1;
+ }
+ 
+ .differentials-layout {
+@@ -9,8 +27,9 @@
+ 
+ .differentials-statement {
+     padding: 1.5rem;
+-    border-left: 2px solid var(--signal);
+-    background: var(--surface-raised);
++    border-left: 2px solid var(--indigo);
++    background: linear-gradient(160deg, var(--surface-raised), var(--surface));
++    border-radius: 0 14px 14px 0;
+ }
+ 
+ .differentials-statement > span {
+@@ -28,7 +47,7 @@
+ }
+ 
+ .differentials-statement strong {
+-    color: var(--sense);
++    color: var(--indigo);
+     font-weight: 500;
+ }
+ 
+@@ -44,10 +63,16 @@
+     gap: 1rem;
+     padding: 1.4rem 0;
+     border-bottom: 1px solid var(--line);
++    transition: padding-left 0.3s ease, border-color 0.3s ease;
++}
++
++.differential-item:hover {
++    padding-left: 0.5rem;
++    border-color: var(--indigo);
+ }
+ 
+ .differential-number {
+-    color: var(--signal);
++    color: var(--indigo);
+     font-size: 0.7rem;
+     padding-top: 0.2rem;
+ }
+@@ -78,4 +103,4 @@
+     .differential-item {
+         grid-template-columns: 3rem 1fr;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/Differentials/Differentials.jsx b/src/components/Differentials/Differentials.jsx
+index 006ff01..8b6a7e6 100644
+--- a/src/components/Differentials/Differentials.jsx
++++ b/src/components/Differentials/Differentials.jsx
+@@ -1,3 +1,4 @@
++import Reveal from "../common/Reveal";
+ import "./Differentials.css";
+ 
+ const DIFFERENTIALS = [
+@@ -5,84 +6,77 @@ const DIFFERENTIALS = [
+         number: "01",
+         title: "Percepção contextual",
+         description:
+-            "A proposta não é apenas detectar objetos, mas identificar quais informações são relevantes para o deslocamento naquele momento."
++            "A proposta não é apenas detectar objetos, mas identificar quais informações são relevantes para o deslocamento naquele momento.",
+     },
+     {
+         number: "02",
+         title: "Experiência integrada",
+         description:
+-            "Textos, objetos, sinalizações e referências do ambiente fazem parte de uma mesma experiência de percepção."
++            "Textos, objetos, sinalizações e referências do ambiente fazem parte de uma mesma experiência de percepção.",
+     },
+     {
+         number: "03",
+         title: "Interação por voz",
+         description:
+-            "O usuário pode solicitar informações e receber respostas por áudio, mantendo a interação simples e acessível."
++            "O usuário pode solicitar informações e receber respostas por áudio, mantendo a interação simples e acessível.",
+     },
+     {
+         number: "04",
+         title: "Foco universitário",
+         description:
+-            "O primeiro contexto de aplicação é delimitado ao ambiente universitário, em vez de tentar resolver todos os cenários possíveis."
++            "O primeiro contexto de aplicação é delimitado ao ambiente universitário, em vez de tentar resolver todos os cenários possíveis.",
+     },
+     {
+         number: "05",
+         title: "Usuário no controle",
+         description:
+-            "A tecnologia fornece informação para apoiar decisões. Ela não conduz automaticamente o estudante."
+-    }
++            "A tecnologia fornece informação para apoiar decisões. Ela não conduz automaticamente o estudante.",
++    },
+ ];
+ 
+ function Differentials() {
+     return (
+         <section className="section differentials" id="diferenciais">
+-            <div className="section-head">
+-                <p className="eyebrow">Diferenciais</p>
+-
+-                <h2 className="section-title">
+-                    Não é apenas reconhecer. É entender o que importa.
+-                </h2>
++            <div className="differentials-pattern" aria-hidden="true" />
+ 
++            <Reveal as="div" className="section-head">
++                <p className="eyebrow">Diferenciais</p>
++                <h2 className="section-title">Não é apenas reconhecer. É entender o que importa.</h2>
+                 <p className="section-lede">
+                     O Vision Assist combina percepção contextual,
+                     interação por voz e foco universitário para transformar
+                     informações visuais em informações úteis para o usuário.
+                 </p>
+-            </div>
++            </Reveal>
+ 
+             <div className="differentials-layout">
+-                <div className="differentials-statement">
++                <Reveal as="div" className="differentials-statement" variant="left">
+                     <span className="mono">VISION ASSIST / PRINCÍPIO</span>
+-
+                     <p>
+                         A informação precisa chegar ao usuário
+                         <strong> no momento em que ela é relevante.</strong>
+                     </p>
+-                </div>
++                </Reveal>
+ 
+                 <div className="differentials-list">
+-                    {DIFFERENTIALS.map(
+-                        ({ number, title, description }) => (
+-                            <article
+-                                className="differential-item"
+-                                key={title}
+-                            >
+-                                <span className="differential-number mono">
+-                                    {number}
+-                                </span>
+-
+-                                <div>
+-                                    <h3>{title}</h3>
+-
+-                                    <p>{description}</p>
+-                                </div>
+-                            </article>
+-                        )
+-                    )}
++                    {DIFFERENTIALS.map(({ number, title, description }, index) => (
++                        <Reveal
++                            as="article"
++                            className="differential-item"
++                            key={title}
++                            delay={index * 80}
++                        >
++                            <span className="differential-number mono">{number}</span>
++                            <div>
++                                <h3>{title}</h3>
++                                <p>{description}</p>
++                            </div>
++                        </Reveal>
++                    ))}
+                 </div>
+             </div>
+         </section>
+     );
+ }
+ 
+-export default Differentials;
+\ No newline at end of file
++export default Differentials;
