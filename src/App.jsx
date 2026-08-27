@@ -2,7 +2,7 @@ import "./index.css";
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Problem from "./components/Problem/Problem";
-import HowItWorks from "./components/HowItWorks";
+import HowItWorks from "./components/HowItWorks/HowItWorks";
 import Perception from "./components/Perception";
 import Experience from "./components/Experience";
 import MVP from "./components/MVP";
@@ -21,8 +21,9 @@ function App() {
 
             <Problem />
 
+            <HowItWorks />
+
       </div>
-      <HowItWorks />
       <Perception />
       <Experience />
       <MVP />
