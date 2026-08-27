@@ -27,10 +27,11 @@ function App() {
             <Perception />
 
             <Demo />
+            
+            <MVP />
 
       </div>
       <Experience />
-      <MVP />
       <Autonomy />
       <About />
       <Footer />
