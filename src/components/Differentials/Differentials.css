@@ -1,0 +1,81 @@
+.differentials {
+    background: var(--surface);
+}
+
+.differentials-layout {
+    display: grid;
+    gap: 2.5rem;
+}
+
+.differentials-statement {
+    padding: 1.5rem;
+    border-left: 2px solid var(--signal);
+    background: var(--surface-raised);
+}
+
+.differentials-statement > span {
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+}
+
+.differentials-statement p {
+    margin-top: 1.2rem;
+    max-width: 24rem;
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    line-height: 1.2;
+}
+
+.differentials-statement strong {
+    color: var(--sense);
+    font-weight: 500;
+}
+
+.differentials-list {
+    display: grid;
+    gap: 0;
+    border-top: 1px solid var(--line);
+}
+
+.differential-item {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 1rem;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.differential-number {
+    color: var(--signal);
+    font-size: 0.7rem;
+    padding-top: 0.2rem;
+}
+
+.differential-item h3 {
+    font-size: 1rem;
+}
+
+.differential-item p {
+    margin-top: 0.35rem;
+    max-width: 38rem;
+    color: var(--paper-dim);
+    font-size: 0.88rem;
+}
+
+@media (min-width: 860px) {
+    .differentials-layout {
+        grid-template-columns: minmax(14rem, 0.65fr) minmax(0, 1.35fr);
+        gap: 5rem;
+        align-items: start;
+    }
+
+    .differentials-statement {
+        position: sticky;
+        top: 7rem;
+    }
+
+    .differential-item {
+        grid-template-columns: 3rem 1fr;
+    }
+}

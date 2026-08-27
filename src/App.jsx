@@ -8,6 +8,7 @@ import Journey from "./components/Journey/Journey"
 import Perception from "./components/Perception/Perception";
 import MVP from "./components/MVP/MVP";
 import Autonomy from "./components/Autonomy/Autonomy";
+import Differentials from "./components/Differentials/Differentials";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -31,7 +32,9 @@ function App() {
 
             <MVP />
 
-            <Autonomy />  
+            <Autonomy />
+
+            <Differentials />
 
             <Footer />
 
