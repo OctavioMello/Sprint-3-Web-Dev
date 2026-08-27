@@ -1,0 +1,139 @@
+diff --git a/src/components/Autonomy/Autonomy.css b/src/components/Autonomy/Autonomy.css
+index fbdc825..230108b 100644
+--- a/src/components/Autonomy/Autonomy.css
++++ b/src/components/Autonomy/Autonomy.css
+@@ -1,13 +1,44 @@
+ .autonomy {
+-    background: var(--ink);
++    position: relative;
++    background: var(--void);
+     min-height: 32rem;
+     display: flex;
+     align-items: center;
+     border-top: 1px solid var(--line);
+     border-bottom: 1px solid var(--line);
++    overflow: hidden;
++}
++
++.autonomy-watermark {
++    position: absolute;
++    top: 50%;
++    left: 50%;
++    transform: translate(-50%, -50%);
++    font-size: clamp(4rem, 18vw, 12rem);
++    font-weight: 700;
++    letter-spacing: 0.02em;
++    color: transparent;
++    -webkit-text-stroke: 1px rgba(147, 173, 255, 0.08);
++    white-space: nowrap;
++    pointer-events: none;
++    z-index: 0;
++}
++
++.autonomy-spot {
++    position: absolute;
++    top: 50%;
++    left: 12%;
++    width: 30rem;
++    height: 30rem;
++    transform: translateY(-50%);
++    background: radial-gradient(circle, rgba(53, 197, 240, 0.14), transparent 68%);
++    pointer-events: none;
++    z-index: 0;
+ }
+ 
+ .autonomy-content {
++    position: relative;
++    z-index: 1;
+     max-width: 52rem;
+ }
+ 
+@@ -19,7 +50,10 @@
+ }
+ 
+ .autonomy-title span {
+-    color: var(--signal);
++    background: linear-gradient(120deg, var(--azure), var(--cyan));
++    -webkit-background-clip: text;
++    background-clip: text;
++    color: transparent;
+ }
+ 
+ .autonomy-description {
+@@ -34,13 +68,16 @@
+     display: flex;
+     flex-direction: column;
+     gap: 0.25rem;
++    border-left: 1px solid var(--line-strong);
++    padding-left: 1.5rem;
+ }
+ 
+ .autonomy-line {
+     width: 3rem;
+     height: 1px;
+-    background: var(--sense);
++    background: var(--cyan);
+     margin-bottom: 0.6rem;
++    margin-left: -1.5rem;
+ }
+ 
+ .autonomy-principle p {
+@@ -52,7 +89,7 @@
+ .autonomy-principle strong {
+     font-family: var(--font-display);
+     font-size: clamp(1.2rem, 3vw, 1.5rem);
+-    color: var(--sense);
++    color: var(--cyan);
+     font-weight: 500;
+ }
+ 
+@@ -68,4 +105,4 @@
+     .autonomy-principle {
+         margin-left: 8rem;
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/Autonomy/Autonomy.jsx b/src/components/Autonomy/Autonomy.jsx
+index 8c36d33..844065e 100644
+--- a/src/components/Autonomy/Autonomy.jsx
++++ b/src/components/Autonomy/Autonomy.jsx
+@@ -1,9 +1,13 @@
++import Reveal from "../common/Reveal";
+ import "./Autonomy.css";
+ 
+ function Autonomy() {
+     return (
+         <section className="section autonomy" id="autonomia">
+-            <div className="autonomy-content">
++            <span className="autonomy-watermark mono" aria-hidden="true">AUTONOMIA</span>
++            <div className="autonomy-spot" aria-hidden="true" />
++
++            <Reveal as="div" className="autonomy-content" variant="scale">
+                 <p className="eyebrow">Autonomia</p>
+ 
+                 <h2 className="autonomy-title">
+@@ -20,18 +24,12 @@ function Autonomy() {
+ 
+                 <div className="autonomy-principle">
+                     <div className="autonomy-line" />
+-
+-                    <p>
+-                        A IA fornece informação.
+-                    </p>
+-
+-                    <strong>
+-                        O usuário decide.
+-                    </strong>
++                    <p>A IA fornece informação.</p>
++                    <strong>O usuário decide.</strong>
+                 </div>
+-            </div>
++            </Reveal>
+         </section>
+     );
+ }
+ 
+-export default Autonomy;
+\ No newline at end of file
++export default Autonomy;

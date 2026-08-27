@@ -1,9 +1,13 @@
+import Reveal from "../common/Reveal";
 import "./Autonomy.css";
 
 function Autonomy() {
     return (
         <section className="section autonomy" id="autonomia">
-            <div className="autonomy-content">
+            <span className="autonomy-watermark mono" aria-hidden="true">AUTONOMIA</span>
+            <div className="autonomy-spot" aria-hidden="true" />
+
+            <Reveal as="div" className="autonomy-content" variant="scale">
                 <p className="eyebrow">Autonomia</p>
 
                 <h2 className="autonomy-title">
@@ -20,16 +24,10 @@ function Autonomy() {
 
                 <div className="autonomy-principle">
                     <div className="autonomy-line" />
-
-                    <p>
-                        A IA fornece informação.
-                    </p>
-
-                    <strong>
-                        O usuário decide.
-                    </strong>
+                    <p>A IA fornece informação.</p>
+                    <strong>O usuário decide.</strong>
                 </div>
-            </div>
+            </Reveal>
         </section>
     );
 }
