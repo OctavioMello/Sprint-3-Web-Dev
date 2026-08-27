@@ -3,7 +3,7 @@ import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Problem from "./components/Problem/Problem";
 import HowItWorks from "./components/HowItWorks/HowItWorks";
-import Perception from "./components/Perception";
+import Perception from "./components/Perception/Perception";
 import Experience from "./components/Experience";
 import MVP from "./components/MVP";
 import Autonomy from "./components/Autonomy";
