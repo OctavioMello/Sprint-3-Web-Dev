@@ -1,6 +1,27 @@
 .journey {
-    background: var(--surface);
+    position: relative;
+    background: var(--surface-alt);
     border-top: 1px solid var(--line);
+    overflow: hidden;
+}
+
+.journey::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60rem;
+    height: 30rem;
+    background: radial-gradient(ellipse, rgba(143, 139, 255, 0.1), transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.journey .section-head,
+.journey-list {
+    position: relative;
+    z-index: 1;
 }
 
 .journey-list {
@@ -26,16 +47,22 @@
 .journey-number {
     width: 2.5rem;
     height: 2.5rem;
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--indigo);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--signal);
+    color: var(--indigo);
     font-size: 0.7rem;
-    background: var(--surface-raised);
+    background: var(--indigo-dim);
     position: relative;
     z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.journey-step:hover .journey-number {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 6px var(--indigo-dim);
 }
 
 .journey-content {
@@ -59,12 +86,13 @@
     top: 2.5rem;
     bottom: 0;
     width: 1px;
-    background: var(--line-strong);
+    background: linear-gradient(180deg, var(--indigo), transparent);
+    opacity: 0.5;
 }
 
 @media (min-width: 860px) {
     .journey-list {
-        max-width: 58rem;
+        max-width: 62rem;
         margin: 0 auto;
         grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
@@ -92,6 +120,7 @@
         width: calc(100% - 2.5rem);
         height: 1px;
         bottom: auto;
+        background: linear-gradient(90deg, var(--indigo), transparent);
     }
 
     .journey-step:last-child .journey-connector {
