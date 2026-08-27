@@ -7,6 +7,7 @@ import Demo from "./components/Demo/Demo";
 import Journey from "./components/Journey/Journey"
 import Perception from "./components/Perception/Perception";
 import MVP from "./components/MVP/MVP";
+import Autonomy from "./components/Autonomy/Autonomy";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -29,6 +30,8 @@ function App() {
             <Journey />
 
             <MVP />
+
+            <Autonomy />  
 
             <Footer />
 
