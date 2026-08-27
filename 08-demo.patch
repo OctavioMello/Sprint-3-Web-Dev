@@ -1,0 +1,254 @@
+diff --git a/src/components/Demo/Demo.css b/src/components/Demo/Demo.css
+index 6d33d00..74c83a8 100644
+--- a/src/components/Demo/Demo.css
++++ b/src/components/Demo/Demo.css
+@@ -1,5 +1,21 @@
+ .demo {
+-    background: var(--ink);
++    position: relative;
++    background: var(--void);
++    overflow: hidden;
++}
++
++.demo-vignette {
++    position: absolute;
++    inset: 0;
++    z-index: 0;
++    pointer-events: none;
++    background: radial-gradient(ellipse 50% 45% at 50% 60%, rgba(53, 197, 240, 0.12), transparent 70%);
++}
++
++.demo .section-head,
++.demo-stage {
++    position: relative;
++    z-index: 1;
+ }
+ 
+ .demo-stage {
+@@ -15,6 +31,17 @@
+     border: 1px solid var(--line-strong);
+     background: var(--surface);
+     padding: 1rem;
++    transition: box-shadow 0.4s ease, border-color 0.4s ease;
++}
++
++.phone.status-scanning {
++    border-color: var(--cyan);
++    box-shadow: 0 0 0 1px var(--cyan-dim), 0 30px 60px -30px rgba(53, 197, 240, 0.6);
++}
++
++.phone.status-done {
++    border-color: var(--azure);
++    box-shadow: 0 0 0 1px var(--azure-dim), 0 30px 60px -30px rgba(76, 127, 255, 0.55);
+ }
+ 
+ .phone-notch {
+@@ -66,23 +93,15 @@
+     left: 8%;
+     right: 8%;
+     height: 2px;
+-    background: var(--sense);
+-    box-shadow: 0 0 12px 2px var(--sense);
++    background: var(--cyan);
++    box-shadow: 0 0 14px 3px var(--cyan);
+     animation: scan 1.4s ease-in-out infinite;
+ }
+ 
+ @keyframes scan {
+-    0% {
+-        top: 8%;
+-    }
+-
+-    50% {
+-        top: 88%;
+-    }
+-
+-    100% {
+-        top: 8%;
+-    }
++    0% { top: 8%; }
++    50% { top: 88%; }
++    100% { top: 8%; }
+ }
+ 
+ .phone-results {
+@@ -102,10 +121,17 @@
+     border-radius: 10px;
+     padding: 0.6rem 0.8rem;
+     font-size: 0.85rem;
++    opacity: 0;
++    transform: translateY(6px);
++    animation: result-in 0.4s ease forwards;
++}
++
++@keyframes result-in {
++    to { opacity: 1; transform: translateY(0); }
+ }
+ 
+ .phone-results li span:last-child {
+-    color: var(--signal);
++    color: var(--azure);
+ }
+ 
+ .phone-audio {
+@@ -113,17 +139,18 @@
+     align-items: center;
+     gap: 0.5rem;
+     font-size: 0.8rem;
+-    color: var(--sense);
+-    background: var(--sense-dim);
++    color: var(--cyan);
++    background: var(--cyan-dim);
+     border-radius: 10px;
+     padding: 0.6rem 0.8rem;
++    animation: result-in 0.4s ease 0.3s both;
+ }
+ 
+ .phone-audio-dot {
+     width: 7px;
+     height: 7px;
+     border-radius: 50%;
+-    background: var(--sense);
++    background: var(--cyan);
+     flex-shrink: 0;
+ }
+ 
+@@ -136,4 +163,4 @@
+     font-size: 0.68rem;
+     letter-spacing: 0.05em;
+     color: var(--muted);
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/Demo/Demo.jsx b/src/components/Demo/Demo.jsx
+index f9e4807..6a60dfb 100644
+--- a/src/components/Demo/Demo.jsx
++++ b/src/components/Demo/Demo.jsx
+@@ -1,19 +1,11 @@
+ import { useState } from "react";
++import Reveal from "../common/Reveal";
+ import "./Demo.css";
+ 
+ const RESULT_TEMPLATES = [
+-    {
+-        label: "Sala 204",
+-        min: 65
+-    },
+-    {
+-        label: "Porta à direita",
+-        min: 65
+-    },
+-    {
+-        label: "Possível obstáculo",
+-        min: 65
+-    }
++    { label: "Sala 204", min: 65 },
++    { label: "Porta à direita", min: 65 },
++    { label: "Possível obstáculo", min: 65 },
+ ];
+ 
+ function randomConfidence(min) {
+@@ -31,7 +23,7 @@ function Demo() {
+         setTimeout(() => {
+             const generatedResults = RESULT_TEMPLATES.map((result) => ({
+                 label: result.label,
+-                confidence: randomConfidence(result.min)
++                confidence: randomConfidence(result.min),
+             }));
+ 
+             setResults(generatedResults);
+@@ -46,49 +38,38 @@ function Demo() {
+ 
+     return (
+         <section className="section demo" id="demo">
+-            <div className="section-head">
+-                <p className="eyebrow">Demonstração</p>
+-
+-                <h2 className="section-title">
+-                    Uma simulação visual do protótipo.
+-                </h2>
++            <div className="demo-vignette" aria-hidden="true" />
+ 
++            <Reveal as="div" className="section-head">
++                <p className="eyebrow">Demonstração</p>
++                <h2 className="section-title">Uma simulação visual do protótipo.</h2>
+                 <p className="section-lede">
+                     Os resultados são gerados aleatoriamente para ilustrar a
+                     experiência. Não há câmera real, IA real ou reconhecimento
+                     de objetos nesta demonstração.
+                 </p>
+-            </div>
++            </Reveal>
+ 
+-            <div className="demo-stage">
+-                <div className="phone">
++            <Reveal as="div" className="demo-stage" variant="scale">
++                <div className={`phone status-${status}`}>
+                     <div className="phone-notch" />
+ 
+                     <div className="phone-screen">
+-                        <p className="phone-heading mono">
+-                            VISION ASSIST
+-                        </p>
++                        <p className="phone-heading mono">VISION ASSIST</p>
+ 
+                         <div className="phone-view">
+                             {status === "idle" && (
+-                                <p className="phone-hint">
+-                                    Aponte a câmera para o ambiente
+-                                </p>
++                                <p className="phone-hint">Aponte a câmera para o ambiente</p>
+                             )}
+ 
+-                            {status === "scanning" && (
+-                                <div className="phone-scan" />
+-                            )}
++                            {status === "scanning" && <div className="phone-scan" />}
+ 
+                             {status === "done" && (
+                                 <ul className="phone-results">
+-                                    {results.map((result) => (
+-                                        <li key={result.label}>
++                                    {results.map((result, index) => (
++                                        <li key={result.label} style={{ animationDelay: `${index * 90}ms` }}>
+                                             <span>{result.label}</span>
+-
+-                                            <span className="mono">
+-                                                {result.confidence}%
+-                                            </span>
++                                            <span className="mono">{result.confidence}%</span>
+                                         </li>
+                                     ))}
+                                 </ul>
+@@ -104,17 +85,11 @@ function Demo() {
+ 
+                         <button
+                             className="btn btn-primary phone-cta"
+-                            onClick={
+-                                status === "done"
+-                                    ? resetDemo
+-                                    : analyze
+-                            }
++                            onClick={status === "done" ? resetDemo : analyze}
+                             disabled={status === "scanning"}
+                         >
+                             {status === "idle" && "ANALISAR AMBIENTE"}
+-
+                             {status === "scanning" && "Analisando…"}
+-
+                             {status === "done" && "Analisar novamente"}
+                         </button>
+                     </div>
+@@ -123,9 +98,9 @@ function Demo() {
+                 <p className="demo-note mono">
+                     Simulação de protótipo · valores gerados com Math.random()
+                 </p>
+-            </div>
++            </Reveal>
+         </section>
+     );
+ }
+ 
+-export default Demo;
+\ No newline at end of file
++export default Demo;

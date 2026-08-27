@@ -1,5 +1,5 @@
 .how {
-    background: var(--surface);
+    background: var(--ink);
 }
 
 .how-pillars {
@@ -7,24 +7,39 @@
     margin: 0 0 2.5rem;
     padding: 0;
     display: grid;
-    gap: 2rem;
+    gap: 2.2rem;
 }
 
 .how-pillar {
     position: relative;
-    padding-left: 2.4rem;
+    padding-left: 2.6rem;
+}
+
+.how-pillar::before {
+    content: "";
+    position: absolute;
+    left: 0.79rem;
+    top: 1.9rem;
+    bottom: -2.2rem;
+    width: 1px;
+    background: linear-gradient(180deg, var(--line-strong), transparent);
+}
+
+.how-pillar:last-child::before {
+    display: none;
 }
 
 .how-pillar-i {
     position: absolute;
     left: 0;
     top: 0;
-    color: var(--signal);
+    color: var(--cyan);
     font-size: 0.8rem;
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--cyan);
+    background: var(--cyan-dim);
     border-radius: 50%;
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 1.7rem;
+    height: 1.7rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -48,9 +63,9 @@
     padding: 1.2rem 1.3rem;
     border: 1px solid var(--line);
     border-radius: 14px;
-    background: var(--surface-raised);
+    background: linear-gradient(120deg, var(--surface), var(--surface-raised));
     font-size: 0.78rem;
-    color: var(--sense);
+    color: var(--cyan);
 }
 
 .how-flow-sep {
@@ -61,5 +76,16 @@
 @media (min-width: 860px) {
     .how-pillars {
         grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .how-pillar::before {
+        left: 1.9rem;
+        right: -1.8rem;
+        top: 0.84rem;
+        bottom: auto;
+        width: auto;
+        height: 1px;
+        background: linear-gradient(90deg, var(--line-strong), transparent);
     }
 }

@@ -1,6 +1,30 @@
 .problem {
-    background: linear-gradient(180deg, var(--ink), var(--surface));
+    position: relative;
+    background: var(--surface-alt);
     border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+}
+
+.problem-pattern {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+        135deg,
+        rgba(143, 139, 255, 0.05) 0px,
+        rgba(143, 139, 255, 0.05) 1px,
+        transparent 1px,
+        transparent 22px
+    );
+    mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
+}
+
+.problem .section-head,
+.problem-grid {
+    position: relative;
+    z-index: 1;
 }
 
 .problem-grid {
@@ -11,8 +35,15 @@
 .problem-card {
     border-radius: 18px;
     border: 1px solid var(--line);
-    background: var(--surface-raised);
+    background: linear-gradient(160deg, var(--surface-raised), var(--surface));
     padding: clamp(1.4rem, 3vw, 2rem);
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.problem-card:hover {
+    border-color: var(--indigo);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -28px rgba(143, 139, 255, 0.6);
 }
 
 .problem-card h3 {
@@ -31,8 +62,9 @@
     font-size: 0.65rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--danger);
-    border: 1px solid rgba(255, 138, 128, 0.35);
+    color: var(--indigo);
+    border: 1px solid rgba(143, 139, 255, 0.35);
+    background: var(--indigo-dim);
     border-radius: 999px;
     padding: 0.25rem 0.6rem;
 }

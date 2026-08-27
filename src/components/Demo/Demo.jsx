@@ -1,19 +1,11 @@
 import { useState } from "react";
+import Reveal from "../common/Reveal";
 import "./Demo.css";
 
 const RESULT_TEMPLATES = [
-    {
-        label: "Sala 204",
-        min: 65
-    },
-    {
-        label: "Porta à direita",
-        min: 65
-    },
-    {
-        label: "Possível obstáculo",
-        min: 65
-    }
+    { label: "Sala 204", min: 65 },
+    { label: "Porta à direita", min: 65 },
+    { label: "Possível obstáculo", min: 65 },
 ];
 
 function randomConfidence(min) {
@@ -31,7 +23,7 @@ function Demo() {
         setTimeout(() => {
             const generatedResults = RESULT_TEMPLATES.map((result) => ({
                 label: result.label,
-                confidence: randomConfidence(result.min)
+                confidence: randomConfidence(result.min),
             }));
 
             setResults(generatedResults);
@@ -46,49 +38,38 @@ function Demo() {
 
     return (
         <section className="section demo" id="demo">
-            <div className="section-head">
+            <div className="demo-vignette" aria-hidden="true" />
+
+            <Reveal as="div" className="section-head">
                 <p className="eyebrow">Demonstração</p>
-
-                <h2 className="section-title">
-                    Uma simulação visual do protótipo.
-                </h2>
-
+                <h2 className="section-title">Uma simulação visual do protótipo.</h2>
                 <p className="section-lede">
                     Os resultados são gerados aleatoriamente para ilustrar a
                     experiência. Não há câmera real, IA real ou reconhecimento
                     de objetos nesta demonstração.
                 </p>
-            </div>
+            </Reveal>
 
-            <div className="demo-stage">
-                <div className="phone">
+            <Reveal as="div" className="demo-stage" variant="scale">
+                <div className={`phone status-${status}`}>
                     <div className="phone-notch" />
 
                     <div className="phone-screen">
-                        <p className="phone-heading mono">
-                            VISION ASSIST
-                        </p>
+                        <p className="phone-heading mono">VISION ASSIST</p>
 
                         <div className="phone-view">
                             {status === "idle" && (
-                                <p className="phone-hint">
-                                    Aponte a câmera para o ambiente
-                                </p>
+                                <p className="phone-hint">Aponte a câmera para o ambiente</p>
                             )}
 
-                            {status === "scanning" && (
-                                <div className="phone-scan" />
-                            )}
+                            {status === "scanning" && <div className="phone-scan" />}
 
                             {status === "done" && (
                                 <ul className="phone-results">
-                                    {results.map((result) => (
-                                        <li key={result.label}>
+                                    {results.map((result, index) => (
+                                        <li key={result.label} style={{ animationDelay: `${index * 90}ms` }}>
                                             <span>{result.label}</span>
-
-                                            <span className="mono">
-                                                {result.confidence}%
-                                            </span>
+                                            <span className="mono">{result.confidence}%</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -104,17 +85,11 @@ function Demo() {
 
                         <button
                             className="btn btn-primary phone-cta"
-                            onClick={
-                                status === "done"
-                                    ? resetDemo
-                                    : analyze
-                            }
+                            onClick={status === "done" ? resetDemo : analyze}
                             disabled={status === "scanning"}
                         >
                             {status === "idle" && "ANALISAR AMBIENTE"}
-
                             {status === "scanning" && "Analisando…"}
-
                             {status === "done" && "Analisar novamente"}
                         </button>
                     </div>
@@ -123,7 +98,7 @@ function Demo() {
                 <p className="demo-note mono">
                     Simulação de protótipo · valores gerados com Math.random()
                 </p>
-            </div>
+            </Reveal>
         </section>
     );
 }

@@ -1,14 +1,12 @@
-function ProblemCard({ tag, title, description, size }) {
+import Reveal from "../common/Reveal";
+
+function ProblemCard({ tag, title, description, size, delay = 0 }) {
     return (
-        <article className={`problem-card ${size}`}>
-            <span className="problem-tag mono">
-                {tag}
-            </span>
-
+        <Reveal as="article" variant="up" delay={delay} className={`problem-card ${size}`}>
+            <span className="problem-tag mono">{tag}</span>
             <h3>{title}</h3>
-
             <p>{description}</p>
-        </article>
+        </Reveal>
     );
 }
 
