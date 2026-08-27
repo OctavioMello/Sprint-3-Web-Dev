@@ -1,0 +1,65 @@
+.how {
+    background: var(--surface);
+}
+
+.how-pillars {
+    list-style: none;
+    margin: 0 0 2.5rem;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+}
+
+.how-pillar {
+    position: relative;
+    padding-left: 2.4rem;
+}
+
+.how-pillar-i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--signal);
+    font-size: 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.how-pillar h3 {
+    font-size: 1.15rem;
+}
+
+.how-pillar p {
+    margin-top: 0.4rem;
+    color: var(--paper-dim);
+    max-width: 24rem;
+}
+
+.how-flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--surface-raised);
+    font-size: 0.78rem;
+    color: var(--sense);
+}
+
+.how-flow-sep {
+    color: var(--muted);
+    margin: 0 0.3rem;
+}
+
+@media (min-width: 860px) {
+    .how-pillars {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
