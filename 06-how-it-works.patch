@@ -1,0 +1,183 @@
+diff --git a/src/components/HowItWorks/HowItWorks.css b/src/components/HowItWorks/HowItWorks.css
+index 376e497..9b6ad1b 100644
+--- a/src/components/HowItWorks/HowItWorks.css
++++ b/src/components/HowItWorks/HowItWorks.css
+@@ -1,5 +1,5 @@
+ .how {
+-    background: var(--surface);
++    background: var(--ink);
+ }
+ 
+ .how-pillars {
+@@ -7,24 +7,39 @@
+     margin: 0 0 2.5rem;
+     padding: 0;
+     display: grid;
+-    gap: 2rem;
++    gap: 2.2rem;
+ }
+ 
+ .how-pillar {
+     position: relative;
+-    padding-left: 2.4rem;
++    padding-left: 2.6rem;
++}
++
++.how-pillar::before {
++    content: "";
++    position: absolute;
++    left: 0.79rem;
++    top: 1.9rem;
++    bottom: -2.2rem;
++    width: 1px;
++    background: linear-gradient(180deg, var(--line-strong), transparent);
++}
++
++.how-pillar:last-child::before {
++    display: none;
+ }
+ 
+ .how-pillar-i {
+     position: absolute;
+     left: 0;
+     top: 0;
+-    color: var(--signal);
++    color: var(--cyan);
+     font-size: 0.8rem;
+-    border: 1px solid var(--line-strong);
++    border: 1px solid var(--cyan);
++    background: var(--cyan-dim);
+     border-radius: 50%;
+-    width: 1.6rem;
+-    height: 1.6rem;
++    width: 1.7rem;
++    height: 1.7rem;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+@@ -48,9 +63,9 @@
+     padding: 1.2rem 1.3rem;
+     border: 1px solid var(--line);
+     border-radius: 14px;
+-    background: var(--surface-raised);
++    background: linear-gradient(120deg, var(--surface), var(--surface-raised));
+     font-size: 0.78rem;
+-    color: var(--sense);
++    color: var(--cyan);
+ }
+ 
+ .how-flow-sep {
+@@ -61,5 +76,16 @@
+ @media (min-width: 860px) {
+     .how-pillars {
+         grid-template-columns: repeat(3, 1fr);
++        gap: 2rem;
++    }
++
++    .how-pillar::before {
++        left: 1.9rem;
++        right: -1.8rem;
++        top: 0.84rem;
++        bottom: auto;
++        width: auto;
++        height: 1px;
++        background: linear-gradient(90deg, var(--line-strong), transparent);
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/HowItWorks/HowItWorks.jsx b/src/components/HowItWorks/HowItWorks.jsx
+index a889c34..bc33362 100644
+--- a/src/components/HowItWorks/HowItWorks.jsx
++++ b/src/components/HowItWorks/HowItWorks.jsx
+@@ -1,67 +1,57 @@
++import Reveal from "../common/Reveal";
+ import "./HowItWorks.css";
+ 
+ const PILLARS = [
+     {
+         step: "Perceber",
+-        desc: "A câmera identifica elementos visuais relevantes no ambiente universitário."
++        desc: "A câmera identifica elementos visuais relevantes no ambiente universitário.",
+     },
+     {
+         step: "Interpretar",
+-        desc: "A IA analisa o contexto e seleciona apenas o que realmente importa."
++        desc: "A IA analisa o contexto e seleciona apenas o que realmente importa.",
+     },
+     {
+         step: "Comunicar",
+-        desc: "As informações relevantes são transformadas em orientações sonoras curtas."
+-    }
++        desc: "As informações relevantes são transformadas em orientações sonoras curtas.",
++    },
+ ];
+ 
+-const HOW_FLOW = [
+-    "Ambiente",
+-    "Câmera",
+-    "IA",
+-    "Informação relevante",
+-    "Áudio",
+-    "Usuário"
+-];
++const HOW_FLOW = ["Ambiente", "Câmera", "IA", "Informação relevante", "Áudio", "Usuário"];
+ 
+ function HowItWorks() {
+     return (
+         <section className="section how" id="como">
+-            <div className="section-head">
++            <Reveal as="div" className="section-head">
+                 <p className="eyebrow">Como funciona</p>
+-
+-                <h2 className="section-title">
+-                    Três pilares, uma decisão do usuário.
+-                </h2>
+-            </div>
++                <h2 className="section-title">Três pilares, uma decisão do usuário.</h2>
++            </Reveal>
+ 
+             <ol className="how-pillars">
+                 {PILLARS.map((pillar, index) => (
+-                    <li key={pillar.step} className="how-pillar">
+-                        <span className="how-pillar-i mono">
+-                            {index + 1}
+-                        </span>
+-
++                    <Reveal
++                        as="li"
++                        key={pillar.step}
++                        className="how-pillar"
++                        delay={index * 120}
++                        variant="left"
++                    >
++                        <span className="how-pillar-i mono">{index + 1}</span>
+                         <h3>{pillar.step}</h3>
+-
+                         <p>{pillar.desc}</p>
+-                    </li>
++                    </Reveal>
+                 ))}
+             </ol>
+ 
+-            <div className="how-flow mono">
++            <Reveal as="div" className="how-flow mono" variant="scale">
+                 {HOW_FLOW.map((item, index) => (
+                     <span key={item}>
+                         {item}
+-
+-                        {index < HOW_FLOW.length - 1 && (
+-                            <span className="how-flow-sep">›</span>
+-                        )}
++                        {index < HOW_FLOW.length - 1 && <span className="how-flow-sep">›</span>}
+                     </span>
+                 ))}
+-            </div>
++            </Reveal>
+         </section>
+     );
+ }
+ 
+-export default HowItWorks;
+\ No newline at end of file
++export default HowItWorks;
