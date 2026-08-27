@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+    --ink: #0c1220;
+    --surface: #131b2c;
+    --surface-raised: #1a2438;
+
+    --line: rgba(242, 243, 240, 0.1);
+    --line-strong: rgba(242, 243, 240, 0.18);
+
+    --paper: #f2f3f0;
+    --paper-dim: #c7cbd6;
+    --muted: #8a93a6;
+
+    --signal: #ffb454;
+    --signal-dim: rgba(255, 180, 84, 0.16);
+
+    --sense: #5eead4;
+    --sense-dim: rgba(94, 234, 212, 0.14);
+
+    --danger: #ff8a80;
+
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+
+    --edge: clamp(1.25rem, 5vw, 4rem);
+}
+
+.vaa * {
+    box-sizing: border-box;
+}
+
+.vaa {
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--font-body);
+    line-height: 1.5;
+}
+
+.vaa h1,
+.vaa h2,
+.vaa h3 {
+    font-family: var(--font-display);
+    margin: 0;
+    letter-spacing: -0.02em;
+}
+
+.vaa p {
+    margin: 0;
+}
+
+.vaa button {
+    font-family: var(--font-body);
+    cursor: pointer;
+}
+
+.mono {
+    font-family: var(--font-mono);
+}
+
+.btn {
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: 0.25s;
+}
+
+.btn-primary {
+    background: var(--signal);
+    color: #241503;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: progress;
+    transform: none;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--paper);
+    border: 1px solid var(--line-strong);
+}
+
+.btn-ghost:hover {
+    border-color: var(--sense);
+    color: var(--sense);
+}
+
+
+/* HEADER */
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    backdrop-filter: blur(14px);
+    background: rgba(12, 18, 32, 0.75);
+
+    border-bottom: 1px solid var(--line);
+
+    padding: 0.9rem var(--edge);
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    font-family: var(--font-display);
+    font-weight: 500;
+
+    text-decoration: none;
+    color: var(--paper);
+}
+
+.header-brand strong {
+    color: var(--signal);
+}
+
+.header-dot {
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background: var(--sense);
+
+    box-shadow: 0 0 0 4px var(--sense-dim);
+}
+
+.header-nav {
+    display: none;
+
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--paper-dim);
+
+    margin-left: 1rem;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.header-cta {
+    margin-left: auto;
+
+    display: none;
+
+    padding: 0.55rem 1.1rem;
+    font-size: 0.8rem;
+
+    text-decoration: none;
+}
+
+.header-toggle {
+    margin-left: auto;
+
+    background: none;
+    border: none;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5px;
+}
+
+.header-toggle span {
+    width: 18px;
+    height: 2px;
+
+    background: var(--paper);
+
+    transition: 0.25s;
+}
+
+.header-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.header-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.header-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.header-mobile {
+    max-height: 0;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: 0.3s;
+
+    position: absolute;
+
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    background: var(--ink);
+}
+
+.header-mobile.open {
+    max-height: 20rem;
+
+    border-top: 1px solid var(--line);
+}
+
+.header-mobile a {
+    padding: 0.9rem var(--edge);
+
+    text-decoration: none;
+
+    color: var(--paper-dim);
+
+    border-bottom: 1px solid var(--line);
+
+    font-size: 0.9rem;
+}
+
+@media (min-width: 860px) {
+    .header-nav {
+        display: flex;
+    }
+
+    .header-cta {
+        display: inline-flex;
+    }
+
+    .header-toggle {
+        display: none;
+    }
+
+    .header-mobile {
+        display: none !important;
+    }
+}
