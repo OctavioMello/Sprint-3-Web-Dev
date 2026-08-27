@@ -1,5 +1,5 @@
 .mvp {
-    background: var(--surface);
+    background: var(--ink);
 }
 
 .mvp-split {
@@ -12,10 +12,15 @@
 
 .mvp-col {
     padding: clamp(1.5rem, 4vw, 2.2rem);
+    transition: background 0.3s ease;
 }
 
 .mvp-col.in {
-    background: var(--sense-dim);
+    background: linear-gradient(160deg, var(--azure-dim), transparent 80%);
+}
+
+.mvp-col.out {
+    background: var(--surface);
 }
 
 .mvp-col h3 {
@@ -24,7 +29,7 @@
 }
 
 .mvp-col.in h3 {
-    color: var(--sense);
+    color: var(--azure);
 }
 
 .mvp-col.out h3 {
@@ -62,13 +67,13 @@
 }
 
 .mvp-icon.in {
-    background: var(--sense);
-    color: #05201b;
+    background: var(--azure);
+    color: #05070d;
 }
 
 .mvp-icon.out {
     border: 1px solid var(--line-strong);
-    color: var(--muted);
+    color: var(--steel);
 }
 
 @media (min-width: 860px) {

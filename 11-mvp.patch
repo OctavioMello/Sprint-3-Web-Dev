@@ -1,0 +1,138 @@
+diff --git a/src/components/MVP/MVP.css b/src/components/MVP/MVP.css
+index a052c00..4269727 100644
+--- a/src/components/MVP/MVP.css
++++ b/src/components/MVP/MVP.css
+@@ -1,5 +1,5 @@
+ .mvp {
+-    background: var(--surface);
++    background: var(--ink);
+ }
+ 
+ .mvp-split {
+@@ -12,10 +12,15 @@
+ 
+ .mvp-col {
+     padding: clamp(1.5rem, 4vw, 2.2rem);
++    transition: background 0.3s ease;
+ }
+ 
+ .mvp-col.in {
+-    background: var(--sense-dim);
++    background: linear-gradient(160deg, var(--azure-dim), transparent 80%);
++}
++
++.mvp-col.out {
++    background: var(--surface);
+ }
+ 
+ .mvp-col h3 {
+@@ -24,7 +29,7 @@
+ }
+ 
+ .mvp-col.in h3 {
+-    color: var(--sense);
++    color: var(--azure);
+ }
+ 
+ .mvp-col.out h3 {
+@@ -62,13 +67,13 @@
+ }
+ 
+ .mvp-icon.in {
+-    background: var(--sense);
+-    color: #05201b;
++    background: var(--azure);
++    color: #05070d;
+ }
+ 
+ .mvp-icon.out {
+     border: 1px solid var(--line-strong);
+-    color: var(--muted);
++    color: var(--steel);
+ }
+ 
+ @media (min-width: 860px) {
+@@ -80,4 +85,4 @@
+     .mvp-divider {
+         background: var(--line-strong);
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/MVP/MVP.jsx b/src/components/MVP/MVP.jsx
+index dba0310..ebfb6a7 100644
+--- a/src/components/MVP/MVP.jsx
++++ b/src/components/MVP/MVP.jsx
+@@ -1,3 +1,4 @@
++import Reveal from "../common/Reveal";
+ import "./MVP.css";
+ 
+ const IN_SCOPE = [
+@@ -6,34 +7,30 @@ const IN_SCOPE = [
+     "Identificação de referências",
+     "Detecção de obstáculos",
+     "Consulta por voz",
+-    "Feedback de áudio contextual"
++    "Feedback de áudio contextual",
+ ];
+ 
+ const OUT_SCOPE = [
+     "Navegação indoor completa",
+     "Cálculo de rotas",
+     "Localização indoor precisa",
+-    "Condução automática"
++    "Condução automática",
+ ];
+ 
+ function MVP() {
+     return (
+         <section className="section mvp" id="mvp">
+-            <div className="section-head">
++            <Reveal as="div" className="section-head">
+                 <p className="eyebrow">O que faz parte do MVP. O que ainda não é o foco.</p>
++                <h2 className="section-title">Onde o Vision Assist começa. E até onde ele vai.</h2>
++            </Reveal>
+ 
+-                <h2 className="section-title">
+-                    Onde o Vision Assist começa. E até onde ele vai.
+-                </h2>
+-            </div>
+-
+-            <div className="mvp-split">
++            <Reveal as="div" className="mvp-split" variant="scale">
+                 <div className="mvp-col in">
+                     <h3>Faz parte do MVP</h3>
+-
+                     <ul>
+-                        {IN_SCOPE.map((item) => (
+-                            <li key={item}>
++                        {IN_SCOPE.map((item, index) => (
++                            <li key={item} style={{ transitionDelay: `${index * 50}ms` }}>
+                                 <span className="mvp-icon in">✓</span>
+                                 {item}
+                             </li>
+@@ -45,19 +42,18 @@ function MVP() {
+ 
+                 <div className="mvp-col out">
+                     <h3>Fora do MVP</h3>
+-
+                     <ul>
+-                        {OUT_SCOPE.map((item) => (
+-                            <li key={item}>
++                        {OUT_SCOPE.map((item, index) => (
++                            <li key={item} style={{ transitionDelay: `${index * 50}ms` }}>
+                                 <span className="mvp-icon out">–</span>
+                                 {item}
+                             </li>
+                         ))}
+                     </ul>
+                 </div>
+-            </div>
++            </Reveal>
+         </section>
+     );
+ }
+ 
+-export default MVP;
+\ No newline at end of file
++export default MVP;
