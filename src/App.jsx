@@ -9,6 +9,7 @@ import Perception from "./components/Perception/Perception";
 import MVP from "./components/MVP/MVP";
 import Autonomy from "./components/Autonomy/Autonomy";
 import Differentials from "./components/Differentials/Differentials";
+import Evolution from "./components/Evolution/Evolution"
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -35,6 +36,8 @@ function App() {
             <Autonomy />
 
             <Differentials />
+
+            <Evolution />
 
             <Footer />
 
