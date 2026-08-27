@@ -1,0 +1,230 @@
+diff --git a/src/components/Perception/Perception.css b/src/components/Perception/Perception.css
+index f3ff53d..010a08a 100644
+--- a/src/components/Perception/Perception.css
++++ b/src/components/Perception/Perception.css
+@@ -1,9 +1,5 @@
+ .perception {
+-    background: linear-gradient(
+-        180deg,
+-        var(--surface),
+-        var(--ink)
+-    );
++    background: linear-gradient(180deg, var(--ink), var(--surface-alt));
+ }
+ 
+ .perception-panel {
+@@ -11,14 +7,30 @@
+     border-radius: 22px;
+     background: var(--surface-raised);
+     overflow: hidden;
++    box-shadow: 0 40px 80px -50px rgba(76, 127, 255, 0.4);
+ }
+ 
+ .perception-tabs {
++    position: relative;
+     display: flex;
+     border-bottom: 1px solid var(--line);
++    background: var(--surface);
++}
++
++.perception-tab-indicator {
++    position: absolute;
++    left: 0;
++    top: 0;
++    bottom: 0;
++    background: var(--azure-dim);
++    border-bottom: 2px solid var(--azure);
++    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
++    pointer-events: none;
+ }
+ 
+ .perception-tab {
++    position: relative;
++    z-index: 1;
+     flex: 1;
+     background: none;
+     border: none;
+@@ -26,17 +38,27 @@
+     padding: 1rem 0.8rem;
+     font-size: 0.9rem;
+     font-weight: 500;
+-    border-bottom: 2px solid transparent;
++    transition: color 0.25s ease;
+ }
+ 
+ .perception-tab.active {
+-    color: var(--sense);
+-    border-bottom-color: var(--sense);
+-    background: var(--sense-dim);
++    color: var(--azure);
+ }
+ 
+ .perception-content {
+     padding: clamp(1.5rem, 4vw, 2.2rem);
++    animation: perception-in 0.45s cubic-bezier(0.16, 0.8, 0.24, 1);
++}
++
++@keyframes perception-in {
++    from {
++        opacity: 0;
++        transform: translateY(10px);
++    }
++    to {
++        opacity: 1;
++        transform: translateY(0);
++    }
+ }
+ 
+ .perception-lede {
+@@ -58,18 +80,29 @@
+     gap: 0.7rem;
+     font-family: var(--font-display);
+     font-size: 1.05rem;
++    opacity: 0;
++    transform: translateX(-8px);
++    animation: perception-item-in 0.4s ease forwards;
++}
++
++@keyframes perception-item-in {
++    to {
++        opacity: 1;
++        transform: translateX(0);
++    }
+ }
+ 
+ .perception-dot {
+     width: 7px;
+     height: 7px;
+     border-radius: 50%;
+-    background: var(--signal);
++    background: var(--azure);
+     flex-shrink: 0;
++    box-shadow: 0 0 0 4px var(--azure-dim);
+ }
+ 
+ @media (min-width: 640px) {
+     .perception-items {
+         grid-template-columns: repeat(2, 1fr);
+     }
+-}
+\ No newline at end of file
++}
+diff --git a/src/components/Perception/Perception.jsx b/src/components/Perception/Perception.jsx
+index b3f6766..5d58021 100644
+--- a/src/components/Perception/Perception.jsx
++++ b/src/components/Perception/Perception.jsx
+@@ -1,61 +1,53 @@
+ import { useState } from "react";
++import Reveal from "../common/Reveal";
+ import "./Perception.css";
+ 
+ const CATEGORIES = {
+     Perceber: {
+         lede: "O que a câmera capta primeiro no ambiente ao redor.",
+-        items: [
+-            "Obstáculos",
+-            "Escadas",
+-            "Desníveis e degraus"
+-        ]
++        items: ["Obstáculos", "Escadas", "Desníveis e degraus"],
+     },
+ 
+     Identificar: {
+         lede: "O que a IA reconhece e nomeia dentro do que foi captado.",
+-        items: [
+-            "Portas",
+-            "Placas",
+-            "Textos e sinalizações"
+-        ]
++        items: ["Portas", "Placas", "Textos e sinalizações"],
+     },
+ 
+     Orientar: {
+         lede: "O que vira referência para o usuário se localizar.",
+-        items: [
+-            "Salas",
+-            "Números de salas",
+-            "Referências de deslocamento"
+-        ]
+-    }
++        items: ["Salas", "Números de salas", "Referências de deslocamento"],
++    },
+ };
+ 
+ function Perception() {
+     const [active, setActive] = useState("Perceber");
+-
++    const keys = Object.keys(CATEGORIES);
++    const activeIndex = keys.indexOf(active);
+     const current = CATEGORIES[active];
+ 
+     return (
+         <section className="section perception" id="percepcao">
+-            <div className="section-head">
+-                <p className="eyebrow">
+-                    O que o Vision Assist identifica
+-                </p>
+-
++            <Reveal as="div" className="section-head">
++                <p className="eyebrow">O que o Vision Assist identifica</p>
+                 <h2 className="section-title">
+                     Obstáculos, portas, escadas, placas, salas e tudo que orienta o trajeto.
+                 </h2>
+-            </div>
+-
+-            <div className="perception-panel">
++            </Reveal>
+ 
++            <Reveal as="div" className="perception-panel" variant="scale">
+                 <div className="perception-tabs">
+-                    {Object.keys(CATEGORIES).map((key) => (
++                    <span
++                        className="perception-tab-indicator"
++                        style={{
++                            width: `${100 / keys.length}%`,
++                            transform: `translateX(${activeIndex * 100}%)`,
++                        }}
++                        aria-hidden="true"
++                    />
++                    {keys.map((key) => (
+                         <button
+                             key={key}
+-                            className={`perception-tab ${
+-                                active === key ? "active" : ""
+-                            }`}
++                            className={`perception-tab ${active === key ? "active" : ""}`}
+                             onClick={() => setActive(key)}
+                         >
+                             {key}
+@@ -63,24 +55,21 @@ function Perception() {
+                     ))}
+                 </div>
+ 
+-                <div className="perception-content">
+-                    <p className="perception-lede">
+-                        {current.lede}
+-                    </p>
++                <div className="perception-content" key={active}>
++                    <p className="perception-lede">{current.lede}</p>
+ 
+                     <ul className="perception-items">
+-                        {current.items.map((item) => (
+-                            <li key={item}>
++                        {current.items.map((item, index) => (
++                            <li key={item} style={{ transitionDelay: `${index * 60}ms` }}>
+                                 <span className="perception-dot" />
+                                 {item}
+                             </li>
+                         ))}
+                     </ul>
+                 </div>
+-
+-            </div>
++            </Reveal>
+         </section>
+     );
+ }
+ 
+-export default Perception;
+\ No newline at end of file
++export default Perception;
