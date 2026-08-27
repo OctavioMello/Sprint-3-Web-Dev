@@ -9,7 +9,7 @@ import Experience from "./components/Experience";
 import MVP from "./components/MVP/MVP";
 import Autonomy from "./components/Autonomy";
 import About from "./components/About";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
             <Perception />
 
             <Demo />
-            
+
             <MVP />
 
       </div>
