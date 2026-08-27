@@ -23,8 +23,9 @@ function App() {
 
             <HowItWorks />
 
+            <Perception />
+
       </div>
-      <Perception />
       <Experience />
       <MVP />
       <Autonomy />
